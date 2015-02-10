@@ -1,9 +1,16 @@
+package accrawler.nlp.opennlp;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import accrawler.common.Article;
+import accrawler.common.DatabaseUtilities;
 
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;
@@ -114,5 +121,55 @@ public class IEUnit {
 			}
 		}
 		return articleInfoList;
+	}
+	
+	private static int getMaxProcessedId() {
+		int i = 0;
+		int count = 0;
+		try {
+			Connection conn = DatabaseUtilities.getDbConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt
+					.executeQuery("select IFNULL(max(article_id), 0) from article_info;");
+			if (rs.next()) {
+				i = rs.getInt("id");
+				count++;
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+		if (count != 1) { // asserting count equals to 1
+			System.err.println("error occured while retrieving max processed id");
+			System.exit(1);
+		}
+		return i;
+	}
+
+	public static List<Article> readArticlesFromDb() {
+		int maxProcessedId = getMaxProcessedId();
+		int accidentCategoryId = 2;
+		List<Article> articles = new ArrayList<Article>();
+		try {
+			Connection conn = DatabaseUtilities.getDbConnection();
+			Statement stmt = conn.createStatement();
+			String query = "select id, heading, content from article where category_id = " + accidentCategoryId + " AND id > " + maxProcessedId;
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String heading = rs.getString("heading");
+				String content = rs.getString("content");
+				Article article = new Article(id, heading, content);
+				articles.add(article);
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+		return articles;
 	}
 }

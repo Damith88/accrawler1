@@ -1,8 +1,12 @@
+package accrawler.classifier;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import accrawler.common.Article;
+import accrawler.common.Category;
 
 import weka.classifiers.Classifier;
 import weka.core.Attribute;

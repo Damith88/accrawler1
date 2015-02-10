@@ -1,3 +1,4 @@
+package accrawler.common;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -170,44 +171,4 @@ public class Article {
 		}
 	}
 
-}
-
-enum Category {
-	OTHER(1, "other"), ACCIDENT(2, "accident");
-
-	private String name;
-	private int id;
-
-	Category(int id, String name) {
-		this.id = id;
-		this.name = name;
-	}
-
-	public int getId() {
-		return this.id;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-}
-
-enum Tag {
-	CHILD(1, "child");
-
-	private String name;
-	private int id;
-
-	Tag(int id, String name) {
-		this.id = id;
-		this.name = name;
-	}
-
-	public int getId() {
-		return this.id;
-	}
-
-	public String getName() {
-		return this.name;
-	}
 }

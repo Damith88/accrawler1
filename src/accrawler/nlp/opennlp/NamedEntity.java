@@ -1,10 +1,11 @@
+package accrawler.nlp.opennlp;
 public class NamedEntity {
-	int sentIndex;
-	String type;
-	int start;
-	int end;
-	String value;
-	double prob;
+	private int sentIndex;
+	private String type;
+	private int start;
+	private int end;
+	private String value;
+	private double prob;
 
 	public int getSentIndex() {
 		return sentIndex;
@@ -66,7 +67,7 @@ public class NamedEntity {
 
 	@Override
 	public String toString() {
-		return this.sentIndex + " " + this.type + " " + this.start + " "
-				+ this.end + " " + this.prob;
+		return sentIndex + " " + type + " " + start + " "
+				+ end + " " + prob;
 	}
 }

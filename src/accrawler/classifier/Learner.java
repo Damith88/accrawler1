@@ -1,3 +1,4 @@
+package accrawler.classifier;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -116,6 +117,7 @@ public class Learner {
 				"FROM dn_article a " +
 				"INNER JOIN rating10 r on r.article_id = a.id;");
 		Instances instances = query.retrieveInstances();
+		// nominal to string filter should be applied before saving as heading and content are string attributes.
 		NominalToString f = new NominalToString();
 		f.setAttributeIndexes("1-2");
 		f.setInputFormat(instances);

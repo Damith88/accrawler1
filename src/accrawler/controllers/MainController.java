@@ -1,9 +1,17 @@
+package accrawler.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import accrawler.classifier.ArticleCategorizer;
+import accrawler.classifier.ArticleTagger;
+import accrawler.common.Article;
+import accrawler.common.DatabaseUtilities;
+import accrawler.nlp.opennlp.ArticleInfo;
+import accrawler.nlp.opennlp.IEUnit;
+
 public class MainController {
 
-	public void run() throws Exception{
+	public void run() throws Exception {
 		DatabaseUtilities.initDbConnection();
 		
 		List<Article> articles = Article.readArticlesFromDb();
@@ -14,7 +22,6 @@ public class MainController {
 		System.out.println("Articles tagged");
 		Article.saveArticles(articles);
 		System.out.println("Articles Saved");
-		System.exit(0);
 		List<Article> relatedArticles = new ArrayList<Article>();
 		// filtering out related articles
 		for (Article a : articles) {

@@ -1,7 +1,10 @@
+package accrawler.nlp.opennlp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+
+import accrawler.common.DatabaseUtilities;
 
 public class ArticleInfo {
 

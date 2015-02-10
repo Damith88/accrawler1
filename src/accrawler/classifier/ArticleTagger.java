@@ -1,3 +1,4 @@
+package accrawler.classifier;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
@@ -6,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import accrawler.common.Article;
+import accrawler.common.Tag;
 
 import weka.classifiers.Classifier;
 import weka.core.Attribute;
