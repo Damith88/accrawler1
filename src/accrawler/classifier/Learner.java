@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import weka.classifiers.Classifier;
 import weka.classifiers.bayes.NaiveBayes;
 import weka.classifiers.bayes.NaiveBayesMultinomialText;
+import weka.classifiers.functions.SMO;
 import weka.classifiers.meta.FilteredClassifier;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
@@ -26,6 +27,8 @@ public class Learner {
 	public static void main(String[] args) throws Exception {
 		//saveAccidents();
 		//saveChildren();
+		saveSMOClassifier(true);
+		saveSMOClassifier(false);
 //		saveNBMTextClassifier(true);
 //		saveJ48Classifier(true);
 //		saveNBMClassifier(true);
@@ -37,6 +40,19 @@ public class Learner {
 		Classifier cls = new NaiveBayesMultinomialText();
 		cls.buildClassifier(trainData);
 		saveModel("NBMT." + (child ? "child" : "accident") + ".model", cls);
+	}
+	
+	static void saveSMOClassifier(boolean child) throws Exception {
+		Instances trainData = loadFromFile(child ? "children2.arff" : "accidents2.arff");
+		trainData.setClassIndex(trainData.numAttributes() - 1);
+		FilteredClassifier cls = new FilteredClassifier();
+		cls.setClassifier(new SMO());
+		StringToWordVector f = new StringToWordVector();
+		f.setInputFormat(trainData);
+		f.setAttributeIndices("1-2");
+		cls.setFilter(f);
+		cls.buildClassifier(trainData);
+		saveModel("SMO." + (child ? "child" : "accident") + ".model", cls);
 	}
 	
 	static void saveJ48Classifier(boolean child) throws Exception {

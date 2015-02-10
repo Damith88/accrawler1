@@ -19,7 +19,7 @@ import weka.core.Instances;
 
 public class ArticleTagger {
 
-	public static final String accidentChildClassifierModelFile = "NBMT.child.model";
+	public static final String accidentChildClassifierModelFile = "SMO.child.model";
 	public static final String YES = "Yes";
 	public static final String NO = "No";
 

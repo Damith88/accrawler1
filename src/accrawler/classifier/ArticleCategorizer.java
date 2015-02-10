@@ -16,7 +16,7 @@ import weka.core.Instances;
 
 public class ArticleCategorizer {
 	
-	public static final String accidentClassifierModelFile = "NBMT.accident.model";
+	public static final String accidentClassifierModelFile = "SMO.accident.model";
 	public static final String ACCIDENT_YES = "Yes";
 	public static final String ACCIDENT_NO= "No";
 

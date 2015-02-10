@@ -130,7 +130,7 @@ public class IEUnit {
 			Connection conn = DatabaseUtilities.getDbConnection();
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt
-					.executeQuery("select IFNULL(max(article_id), 0) from article_info;");
+					.executeQuery("select IFNULL(max(article_id), 0) as id from article_info;");
 			if (rs.next()) {
 				i = rs.getInt("id");
 				count++;
